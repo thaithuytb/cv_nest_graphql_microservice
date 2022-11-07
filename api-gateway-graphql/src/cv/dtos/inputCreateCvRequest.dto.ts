@@ -72,12 +72,6 @@ export class InputCreateCvRequest {
   @Field({ nullable: true })
   summary: string;
 
-  @Field((_type) => Boolean, { nullable: true })
-  isDeleted: boolean;
-
-  @Field((_type) => Int)
-  @IsNumber()
-  @IsNotEmpty()
   userId: number;
 
   @Field((_type) => [InputCreateEducationCertification], { nullable: true })

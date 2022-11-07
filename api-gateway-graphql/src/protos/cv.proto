@@ -10,6 +10,7 @@ import "./cv_experience_project.proto";
 
 service CvServiceGrpc {
     rpc getCv (InputCvIdRequest) returns (CvResponse) {}
+    rpc getCvByCvIdAndUserId (InputCvIdAndUserIdRequest) returns (CvResponse) {}
     rpc createCv (InputCreateCvRequest) returns (CvResponse) {}
 }
 
@@ -60,17 +61,21 @@ message InputCvIdRequest {
     int32 cvId = 1;
 }
 
+message InputCvIdAndUserIdRequest {
+    int32 cvId = 1;
+    int32 userId = 2;
+}
+
 message InputCreateCvRequest {
     string name = 1;
     string gender = 2;
     string nationality = 3;
     string objective = 4;
     string summary = 5;
-    bool isDeleted = 6;
-    int32 userId = 7;
-    repeated EducationCertification educationCertifications = 8;
-    repeated WorkExperience workExperiences = 9;
-    repeated ExperienceProject experienceProjects = 10;
+    int32 userId = 6;
+    repeated EducationCertification educationCertifications = 7;
+    repeated WorkExperience workExperiences = 8;
+    repeated ExperienceProject experienceProjects = 9;
 }
 
 message CvResponse {

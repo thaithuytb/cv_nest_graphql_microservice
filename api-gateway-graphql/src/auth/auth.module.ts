@@ -19,5 +19,6 @@ import { AuthService } from './auth.service';
     ]),
   ],
   providers: [AuthResolver, AuthService],
+  exports: [AuthService],
 })
 export class AuthModule {}

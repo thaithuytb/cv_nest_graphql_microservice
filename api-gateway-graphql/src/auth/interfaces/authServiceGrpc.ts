@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/types/user.type';
 import { InputLoginRequest } from '../dtos/inputLoginRequest.dto';
 import { InputRegisterRequest } from '../dtos/inputRegisterRequest.dto';
-import { InputPermissionRequest } from '../dtos/inputPermissionRequest';
+import { InputPermissionRequest } from '../dtos/inputPermissionRequest.dto';
 
 @ObjectType()
 export class ResponseAuthFromGrpc {

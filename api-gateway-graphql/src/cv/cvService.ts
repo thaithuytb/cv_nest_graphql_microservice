@@ -25,8 +25,17 @@ export class CvService implements OnModuleInit {
     this.cvServiceGrpc = this.client.getService<CvServiceGrpc>('CvServiceGrpc');
   }
 
-  async getCv(id: number): Promise<ResponseCvFromGrpc> {
-    return await lastValueFrom(await this.cvServiceGrpc.getCv({ cvId: id }));
+  async getCvById(cvId: number): Promise<ResponseCvFromGrpc> {
+    return await lastValueFrom(await this.cvServiceGrpc.getCv({ cvId }));
+  }
+
+  async getCvByCvIdAndUserId(
+    cvId: number,
+    userId: number,
+  ): Promise<ResponseCvFromGrpc> {
+    return await lastValueFrom(
+      await this.cvServiceGrpc.getCvByCvIdAndUserId({ cvId, userId }),
+    );
   }
 
   async createCv(cv: InputCreateCvRequest) {

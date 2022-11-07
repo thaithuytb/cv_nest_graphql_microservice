@@ -6,6 +6,7 @@ import { CvService } from './cvService';
 import { EducationCertificationModule } from '../education_certification/education_certification.module';
 import { WorkExperienceModule } from '../work_experience/work_experience.module';
 import { ExperienceProjectModule } from '../experience_project/experience_project.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ExperienceProjectModule } from '../experience_project/experience_projec
         },
       },
     ]),
+    AuthModule,
     forwardRef(() => EducationCertificationModule),
     forwardRef(() => WorkExperienceModule),
     forwardRef(() => ExperienceProjectModule),

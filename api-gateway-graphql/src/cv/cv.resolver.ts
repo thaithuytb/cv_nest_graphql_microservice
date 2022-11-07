@@ -1,5 +1,6 @@
 import {
   Args,
+  Context,
   Mutation,
   Parent,
   Query,
@@ -15,16 +16,26 @@ import { WorkExperience } from '../types/work_experience.type';
 import { ExperienceProject } from '../types/experience_project.type';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../guard/auth.guard';
+import { AuthService } from '../auth/auth.service';
 
 @Resolver((of) => Cv)
 export class CvResolver {
-  constructor(private cvService: CvService) {}
+  constructor(private cvService: CvService, private authService: AuthService) {}
 
   @UseGuards(new AuthGuard())
   @Query((_returns) => Cv)
-  async getOneCv(@Args('id') id: number): Promise<Cv> {
+  async getOneCv(
+    @Args('cv_id') cv_id: number,
+    @Context() ctx: any,
+  ): Promise<Cv> {
+    const { id, email } = ctx.user;
     try {
-      const { cv } = await this.cvService.getCv(id);
+      const checkPermission = await this.authService.isAdmin({ id, email });
+      if (checkPermission.isAdmin) {
+        const { cv } = await this.cvService.getCvById(cv_id);
+        return cv;
+      }
+      const { cv } = await this.cvService.getCvByCvIdAndUserId(cv_id, id);
       return cv;
     } catch (error) {
       throw new RpcException(error);
@@ -35,8 +46,10 @@ export class CvResolver {
   @Mutation((_returns) => Cv)
   async createCv(
     @Args('inputCreateCv') inputCreateCv: InputCreateCvRequest,
+    @Context() ctx: any,
   ): Promise<Cv> {
     try {
+      inputCreateCv.userId = ctx.user.id;
       const { cv } = await this.cvService.createCv(inputCreateCv);
       return cv;
     } catch (error) {

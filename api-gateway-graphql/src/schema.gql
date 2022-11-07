@@ -75,11 +75,11 @@ type ResponseAuthFromGrpc {
 }
 
 type Query {
-  getOneCv(id: Float!): Cv!
+  getOneCv(cv_id: Float!): Cv!
+  isAdmin: Boolean!
   findEcs(cvId: Float!): [EducationCertification!]!
   findWes(cvId: Float!): [WorkExperience!]!
   findEps(cvId: Float!): [ExperienceProject!]!
-  isAdmin: Boolean!
 }
 
 type Mutation {
@@ -94,8 +94,6 @@ input InputCreateCvRequest {
   nationality: String!
   objective: String
   summary: String
-  isDeleted: Boolean
-  userId: Int!
   educationCertifications: [InputCreateEducationCertification!]
   workExperiences: [InputCreateWorkExperience!]
   experienceProjects: [InputCreateExperienceProject!]

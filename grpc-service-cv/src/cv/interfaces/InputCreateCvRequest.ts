@@ -38,7 +38,6 @@ export interface InputCreateCvRequest {
   nationality: string;
   objective?: string;
   summary?: string;
-  isDeleted?: boolean;
   userId: number;
   educationCertifications?: [EducationCertificationInput];
   workExperiences?: [WorkExperienceInput];

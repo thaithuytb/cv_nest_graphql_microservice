@@ -28,6 +28,6 @@ export class EducationCertificationService {
 
   //parent
   async findCv(cvId: number) {
-    return await this.cvService.getCv(cvId);
+    return await this.cvService.getCvById(cvId);
   }
 }

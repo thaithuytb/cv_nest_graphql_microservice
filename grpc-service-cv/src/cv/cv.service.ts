@@ -18,8 +18,12 @@ export class CvService {
     private readonly cvRepository: EntityRepository<Cv>,
   ) {}
 
-  async getCv(cv_id: number) {
-    return await this.permissionCv(cv_id);
+  async getCv(cvId: number) {
+    return await this.permissionCv(cvId);
+  }
+
+  async getCvByCvIdAndUserId(cvId: number, userId: number) {
+    return await this.permissionCv(cvId, userId);
   }
 
   async createCv(inputCreateCv: InputCreateCvRequest) {
@@ -118,9 +122,9 @@ export class CvService {
   }
 
   //other
-  async permissionCv(cv_id: number) {
+  async permissionCv(cvId: number, userId?: number) {
     try {
-      const cv = await this.findCvById(cv_id);
+      const cv = await this.findCvById(cvId);
       if (!cv) {
         throw new RpcException({
           message: 'Cv not found',
@@ -128,19 +132,24 @@ export class CvService {
         });
       }
 
-      return cv;
+      if (!userId) {
+        return cv;
+      }
 
-      //   if (cv.user_id === user.id || user.role === UserRole.ADMIN) {
-      //     return cv;
-      //   }
+      if (cv.userId === userId) {
+        return cv;
+      }
 
-      //   throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+      throw new RpcException({
+        message: 'Forbidden',
+        code: 403,
+      });
     } catch (error) {
       resolveError(error);
     }
   }
 
-  async findCvById(cv_id: number) {
-    return await this.cvRepository.findOne(cv_id);
+  async findCvById(cvId: number) {
+    return await this.cvRepository.findOne(cvId);
   }
 }

@@ -8,7 +8,7 @@ import {
 import { lastValueFrom } from 'rxjs';
 import { InputLoginRequest } from './dtos/inputLoginRequest.dto';
 import { InputRegisterRequest } from './dtos/inputRegisterRequest.dto';
-import { InputPermissionRequest } from './dtos/inputPermissionRequest';
+import { InputPermissionRequest } from './dtos/inputPermissionRequest.dto';
 
 @Injectable()
 export class AuthService {
