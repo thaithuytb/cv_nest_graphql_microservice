@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package experienceProject;
+
+service ExperienceProjectServiceGrpc {
+    rpc findExperienceProjectsByCvId (InputCvIdRequest) returns (ExperienceProjectsResponse) {}
+    rpc findExperienceProjectsByWEId (InputWEIdRequest) returns (ExperienceProjectsResponse) {}
+}
+
+message WorkExperience {
+    int32 id = 1;
+    string time = 2;
+    string company = 3;
+    string jobTitle = 4;
+    string jobDescription = 5;
+    bool isDeleted = 6;
+    Cv cv = 7;
+}
+
+message Cv {
+    int32 id = 1;
+    string name = 2;
+    string gender = 3;
+    string nationality = 4;
+    string objective = 5;
+    string summary = 6;
+    bool isDeleted = 7;
+    int32 userId = 8;
+}
+
+message ExperienceProject {
+    int32 id = 1;
+    string name = 2;
+    string time = 3;
+    string projectDescription = 4;
+    string role = 5;
+    string responsibilities = 6;
+    string programmingLanguages = 7;
+    bool isDeleted = 8;
+    Cv cv = 9;
+    WorkExperience workExperience = 10;
+}
+
+message InputCvIdRequest {
+    int32 cvId = 1;
+}
+
+message InputWEIdRequest {
+    int32 weId = 1;
+}
+
+message ExperienceProjectsResponse {
+    repeated ExperienceProject data = 1;
+}

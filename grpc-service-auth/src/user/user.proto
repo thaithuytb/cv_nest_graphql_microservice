@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package user;
+import "google/protobuf/timestamp.proto";
+
+service AuthServiceGrpc {
+    rpc login (InputLoginRequest) returns (LoginResponse) {}
+    rpc register (InputRegisterRequest) returns (RegisterResponse) {}
+    rpc isAdmin (InputPermissionRequest) returns (PermissionResponse) {}
+}
+
+message InputLoginRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    User user = 1;
+    string accessToken = 2;
+}
+
+message InputRegisterRequest {
+    string email = 1;
+    string password = 2;
+    string confirmPassword = 3;
+}
+
+message RegisterResponse {
+    User user = 1;
+    string accessToken = 2;
+}
+
+message InputPermissionRequest {
+    int32 id = 1;
+    string email = 2;
+}
+
+message PermissionResponse {
+    bool isAdmin = 1;
+}
+
+message User {
+    int32 id = 1;
+    string email = 2;
+    string username = 3;
+    string age = 4;
+    UserRole role = 5;
+    google.protobuf.Timestamp createdAt = 6;
+    google.protobuf.Timestamp updatedAt = 7;
+}
+
+enum UserRole {
+    ADMIN = 1;
+    USER = 2;
+}

@@ -1,0 +1,136 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Cv {
+  id: Int!
+  name: String!
+  gender: String!
+  nationality: String!
+  objective: String!
+  summary: String!
+  isDeleted: Boolean!
+  userId: Int!
+  educationCertifications: [EducationCertification!]!
+  workExperiences: [WorkExperience!]!
+  experienceProjects: [ExperienceProject!]!
+}
+
+type EducationCertification {
+  id: Int!
+  name: String!
+  time: String!
+  major: String!
+  isDeleted: Boolean!
+  cv: Cv!
+}
+
+type WorkExperience {
+  id: Int!
+  time: String!
+  company: String!
+  jobTitle: String!
+  jobDescription: String!
+  isDeleted: Boolean!
+  cv: Cv!
+  experienceProjects: [ExperienceProject!]!
+}
+
+type ExperienceProject {
+  id: Int!
+  name: String!
+  time: String!
+  projectDescription: String!
+  role: String!
+  responsibilities: String!
+  programmingLanguages: String!
+  isDeleted: Boolean!
+  cv: Cv!
+  workExperience: WorkExperience!
+}
+
+type User {
+  id: Int!
+  email: String!
+  username: String!
+  age: Int!
+  role: UserRole!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ResponseAuthFromGrpc {
+  user: User!
+  accessToken: String!
+}
+
+type Query {
+  getOneCv(id: Float!): Cv!
+  findEcs(cvId: Float!): [EducationCertification!]!
+  findWes(cvId: Float!): [WorkExperience!]!
+  findEps(cvId: Float!): [ExperienceProject!]!
+  isAdmin: Boolean!
+}
+
+type Mutation {
+  createCv(inputCreateCv: InputCreateCvRequest!): Cv!
+  login(inputLogin: InputLoginRequest!): ResponseAuthFromGrpc!
+  register(inputRegister: InputRegisterRequest!): ResponseAuthFromGrpc!
+}
+
+input InputCreateCvRequest {
+  name: String!
+  gender: String!
+  nationality: String!
+  objective: String
+  summary: String
+  isDeleted: Boolean
+  userId: Int!
+  educationCertifications: [InputCreateEducationCertification!]
+  workExperiences: [InputCreateWorkExperience!]
+  experienceProjects: [InputCreateExperienceProject!]
+}
+
+input InputCreateEducationCertification {
+  name: String
+  time: String
+  major: String
+}
+
+input InputCreateWorkExperience {
+  time: String
+  company: String!
+  jobTitle: String
+  jobDescription: String
+}
+
+input InputCreateExperienceProject {
+  name: String
+  time: String
+  projectDescription: String
+  role: String
+  responsibilities: String
+  programmingLanguages: String
+  workExperience: InputCreateWorkExperience!
+}
+
+input InputLoginRequest {
+  email: String!
+  password: String!
+}
+
+input InputRegisterRequest {
+  email: String!
+  password: String!
+  confirmPassword: String!
+}

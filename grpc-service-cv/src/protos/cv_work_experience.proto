@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package workExperience;
+
+service WorkExperienceServiceGrpc {
+    rpc findWorkExperiencesByCvId (InputCvIdRequest) returns (WorkExperiencesResponse) {}
+}
+
+message Cv {
+    int32 id = 1;
+    string name = 2;
+    string gender = 3;
+    string nationality = 4;
+    string objective = 5;
+    string summary = 6;
+    bool isDeleted = 7;
+    int32 userId = 8;
+}
+
+message WorkExperience {
+    int32 id = 1;
+    string time = 2;
+    string company = 3;
+    string jobTitle = 4;
+    string jobDescription = 5;
+    bool isDeleted = 6;
+    Cv cv = 7;
+}
+
+message InputCvIdRequest {
+    int32 cvId = 1;
+}
+
+message WorkExperiencesResponse {
+    repeated WorkExperience data = 1;
+}
