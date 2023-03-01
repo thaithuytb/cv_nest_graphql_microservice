@@ -1,6 +1,6 @@
 import { Entity, Enum, Property } from '@mikro-orm/core';
 import { BaseEntity } from './baseEntity';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from 'uuid';
 
 export enum UserRole {
   ADMIN = 1,

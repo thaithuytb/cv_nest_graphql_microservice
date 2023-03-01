@@ -1,13 +1,13 @@
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
-import { CvModule } from './cv/cv.module';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { CvModule } from './cv/cv.module';
 import { EducationCertificationModule } from './education_certification/education_certification.module';
-import { WorkExperienceModule } from './work_experience/work_experience.module';
 import { ExperienceProjectModule } from './experience_project/experience_project.module';
+import { WorkExperienceModule } from './work_experience/work_experience.module';
 
 @Module({
   imports: [

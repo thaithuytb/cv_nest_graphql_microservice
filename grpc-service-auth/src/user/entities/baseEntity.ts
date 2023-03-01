@@ -6,9 +6,11 @@ export abstract class BaseEntity {
   })
   id!: number;
 
-  @Property()
+  @Property({
+    type: 'timestamptz',
+  })
   createdAt: Date = new Date();
 
-  @Property({ onUpdate: () => new Date() })
+  @Property({ type: 'timestamptz', onUpdate: () => new Date() })
   updatedAt: Date = new Date();
 }

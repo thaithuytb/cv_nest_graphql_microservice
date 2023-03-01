@@ -1,4 +1,10 @@
-import { Field, ObjectType, registerEnumType, Int } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  registerEnumType,
+  Int,
+  GraphQLISODateTime,
+} from '@nestjs/graphql';
 
 export enum UserRole {
   ADMIN = 1,
@@ -26,9 +32,9 @@ export class User {
   @Field((_type) => UserRole)
   role: UserRole = UserRole.USER;
 
-  @Field()
-  createdAt: Date;
+  @Field(() => Int)
+  createdAt: number;
 
-  @Field()
-  updatedAt: Date;
+  @Field(() => Int)
+  updatedAt: number;
 }

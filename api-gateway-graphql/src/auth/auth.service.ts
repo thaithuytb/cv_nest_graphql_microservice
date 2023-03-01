@@ -28,7 +28,7 @@ export class AuthService {
   async register(
     registerInput: InputRegisterRequest,
   ): Promise<ResponseAuthFromGrpc> {
-    return await lastValueFrom(await this.authService.register(registerInput));
+    return await lastValueFrom(this.authService.register(registerInput));
   }
 
   async isAdmin(

@@ -10,6 +10,8 @@ import resolveError from '../error/error';
 import { RpcException } from '@nestjs/microservices';
 import { InputPermissionRequest } from './interfaces/inputPermissionRequest';
 
+import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
+
 @Injectable()
 export class UserService {
   constructor(
@@ -34,7 +36,7 @@ export class UserService {
       newUser.email = email;
       newUser.password = hashedPassword;
 
-      const userDb = await this.userRepository.create(newUser);
+      const userDb = this.userRepository.create(newUser);
 
       await this.userRepository.persistAndFlush(userDb);
 
@@ -44,7 +46,11 @@ export class UserService {
       } as User);
 
       return {
-        user: userDb,
+        user: {
+          ...userDb,
+          createdAt: this.dateToTimestamp(userDb.createdAt),
+          updatedAt: this.dateToTimestamp(userDb.updatedAt),
+        },
         accessToken,
       };
     } catch (error) {
@@ -118,5 +124,9 @@ export class UserService {
 
   async signToken(user: User) {
     return sign(user, 'abc');
+  }
+
+  dateToTimestamp(date: Date): number {
+    return Timestamp.fromDate(date).getSeconds();
   }
 }

@@ -45,8 +45,8 @@ message User {
     string username = 3;
     string age = 4;
     UserRole role = 5;
-    google.protobuf.Timestamp createdAt = 6;
-    google.protobuf.Timestamp updatedAt = 7;
+    int32 createdAt = 6;
+    int32 updatedAt = 7;
 }
 
 enum UserRole {
